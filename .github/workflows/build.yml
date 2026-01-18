@@ -2,7 +2,7 @@ name: Build and Upload to Appetize
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -68,3 +68,4 @@ jobs:
         run: |
           echo "✅ Upload successful!"
           echo "📱 Test URL: https://appetize.io/app/${{ steps.appetize.outputs.publicKey }}"
+
