@@ -1,0 +1,70 @@
+name: Build and Upload to Appetize
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+
+      - name: Build for Simulator
+        run: |
+          cd ios
+          xcodebuild \
+            -project HelloWorld.xcodeproj \
+            -scheme HelloWorld \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination "generic/platform=iOS Simulator" \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            ONLY_ACTIVE_ARCH=NO \
+            build
+
+      - name: Verify build
+        run: |
+          APP_PATH="ios/build/Build/Products/Debug-iphonesimulator/HelloWorld.app"
+          echo "=== App contents ==="
+          ls -la "$APP_PATH/"
+          echo ""
+          echo "=== Binary info ==="
+          file "$APP_PATH/HelloWorld"
+          lipo -info "$APP_PATH/HelloWorld"
+          echo ""
+          echo "=== Info.plist ==="
+          cat "$APP_PATH/Info.plist"
+
+      - name: Create zip for Appetize
+        run: |
+          cd ios/build/Build/Products/Debug-iphonesimulator
+          zip -r HelloWorld.zip HelloWorld.app
+          ls -lh HelloWorld.zip
+          unzip -l HelloWorld.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HelloWorld-iOS
+          path: ios/build/Build/Products/Debug-iphonesimulator/HelloWorld.app
+
+      - name: Upload to Appetize.io
+        uses: appetizeio/github-action-appetize@v1.0.5
+        id: appetize
+        with:
+          apiToken: ${{ secrets.APPETIZE_API_TOKEN }}
+          appFile: ios/build/Build/Products/Debug-iphonesimulator/HelloWorld.zip
+          platform: ios
+
+      - name: Show Appetize URL
+        run: |
+          echo "✅ Upload successful!"
+          echo "📱 Test URL: https://appetize.io/app/${{ steps.appetize.outputs.publicKey }}"
