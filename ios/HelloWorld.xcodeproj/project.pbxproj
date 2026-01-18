@@ -10,7 +10,7 @@ objects = {
 A01234560001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234570001 /* AppDelegate.swift */; };
 A01234560002 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234570002 /* ViewController.swift */; };
 A01234560003 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01234570003 /* LaunchScreen.storyboard */; };
-A01234560004 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = A01234570006 /* Resources */; };
+A01234560004 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = A01234570006 /* index.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,7 +19,7 @@ A01234570002 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFile
 A01234570003 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 A01234570004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 A01234570005 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
-A01234570006 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+A01234570006 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,7 @@ A01234570001 /* AppDelegate.swift */,
 A01234570002 /* ViewController.swift */,
 A01234570003 /* LaunchScreen.storyboard */,
 A01234570004 /* Info.plist */,
-A01234570006 /* Resources */,
+A01234570006 /* index.html */,
 );
 path = HelloWorld;
 sourceTree = "<group>";
@@ -120,7 +120,7 @@ isa = PBXResourcesBuildPhase;
 buildActionMask = 2147483647;
 files = (
 A01234560003 /* LaunchScreen.storyboard in Resources */,
-A01234560004 /* Resources in Resources */,
+A01234560004 /* index.html in Resources */,
 );
 runOnlyForDeploymentPostprocessing = 0;
 };

@@ -20,12 +20,11 @@ class ViewController: UIViewController {
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        // Load from Resources folder
-        if let resourcePath = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "Resources") {
-            let url = URL(fileURLWithPath: resourcePath)
+        // Load HTML file directly from bundle (no subfolder)
+        if let url = Bundle.main.url(forResource: "index", withExtension: "html") {
             webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         } else {
-            let html = "<html><body><h1>Resources not found</h1></body></html>"
+            let html = "<html><body><h1>index.html not found</h1></body></html>"
             webView.loadHTMLString(html, baseURL: nil)
         }
     }
