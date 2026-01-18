@@ -8,7 +8,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
         
-        // Add WKWebView
         let config = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: config)
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,30 +20,13 @@ class ViewController: UIViewController {
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        // Load a simple HTML page inline
-        let html = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body { 
-                    font-family: -apple-system; 
-                    display: flex; 
-                    justify-content: center; 
-                    align-items: center; 
-                    height: 100vh; 
-                    margin: 0;
-                    background: #007AFF;
-                    color: white;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Hello WebView!</h1>
-        </body>
-        </html>
-        """
-        webView.loadHTMLString(html, baseURL: nil)
+        // Load from Resources folder
+        if let resourcePath = Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "Resources") {
+            let url = URL(fileURLWithPath: resourcePath)
+            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
+        } else {
+            let html = "<html><body><h1>Resources not found</h1></body></html>"
+            webView.loadHTMLString(html, baseURL: nil)
+        }
     }
 }
